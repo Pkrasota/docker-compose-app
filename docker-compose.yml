@@ -1,0 +1,21 @@
+ version: "3.8"
+ services:
+   docker-compose-app:
+     build: .
+     container_name: docker-compose-app
+     depends_on:
+       - docker-compose-db
+     ports:
+       - target: 8080
+         published: 8080
+     environment:
+     - SPRING_DATASOURCE_URL=jdbc:postgresql://docker-compose-db:5432/postgres
+     - SPRING_DATASOURCE_USERNAME=postgres
+     - SPRING_DATASOURCE_PASSWORD=postgres
+
+   docker-compose-db:
+     image: postgres
+     container_name: docker-compose-db
+     environment:
+       - POSTGRES_USER=postgres
+       - POSTGRES_PASSWORD=postgres
